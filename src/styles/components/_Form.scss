@@ -1,0 +1,37 @@
+/*
+============
+Form Styles
+============
+*/
+
+.input-group {
+  display: grid;
+  margin: 0 auto;
+  margin-top: 1em;
+  width: 60%;
+  grid-template-columns: 80% 10%;
+  grid-template-rows: 1fr;
+  input {
+    height: 2rem;
+    padding: 1em;
+    color: $clr-grey-3;
+    border: 1px solid $clr-grey-8;
+    outline: none;
+    font-size: 1.2em;
+  }
+  button {
+    transition: $transition;
+    padding: 0;
+    margin: 0;
+    cursor: pointer;
+    color: $clr-grey-3;
+    font-size: 1.5rem;
+    background: transparent;
+    border: none;
+    outline: none;
+    margin-left: 0.4em;
+    &:hover {
+      color: $clr-grey-5;
+    }
+  }
+}

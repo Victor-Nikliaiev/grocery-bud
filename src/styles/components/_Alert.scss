@@ -1,0 +1,19 @@
+/*
+=============
+Alert Styles
+=============
+*/
+.alert {
+  font-family: $ff-3;
+  display: block;
+  border-radius: 0.3rem;
+  font-size: 0.8rem;
+  padding: 0.1em;
+  color: $clr-grey-10;
+  &.success {
+    background-color: $clr-green-light;
+  }
+  &.danger {
+    background-color: $clr-red-light;
+  }
+}

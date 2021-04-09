@@ -1,0 +1,49 @@
+/*
+=============
+Items Styles
+=============
+*/
+
+.items-group {
+  // border: 2px solid magenta;
+  display: flex;
+  flex-flow: column nowrap;
+}
+
+.deleteAllbtn {
+  cursor: pointer;
+  color: $clr-red-light;
+  border: 0;
+  outline: 0;
+  font-size: 1.5rem;
+  font-weight: bold;
+}
+
+[data-tooltip] {
+  position: relative;
+  &::after {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    content: attr(data-tooltip);
+    position: absolute;
+    width: 4rem;
+    height: 1rem;
+    left: 0;
+    bottom: 40%;
+    background: $clr-red-light;
+    color: $clr-grey-9;
+    padding: 0.1em;
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
+    border-radius: 0.2em;
+    pointer-events: none;
+    opacity: 0;
+    transition: $transition;
+    font-size: 0.3em;
+  }
+  &:hover::after {
+    opacity: 1;
+    bottom: 40%;
+    left: 3.5em;
+  }
+}

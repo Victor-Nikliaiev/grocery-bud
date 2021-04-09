@@ -1,0 +1,47 @@
+/*
+============
+Item Styles
+============
+*/
+
+.item-group {
+  font-family: $ff-4;
+  transition: $transition;
+  display: flex;
+  justify-content: space-between;
+  &:hover {
+    background-color: $clr-grey-11;
+  }
+}
+
+.editing {
+  background: $clr-green-lighter;
+}
+
+.btn-group {
+  display: flex;
+  flex-flow: row nowrap;
+  button {
+    cursor: pointer;
+    transition: $transition;
+    border: none;
+    outline: none;
+    margin: 0.1em;
+    background: transparent;
+    margin-right: 0.3em;
+  }
+}
+
+.editBtn {
+  color: $clr-green-light;
+  &:hover {
+    color: $clr-green-dark;
+  }
+}
+
+.deleteBtn {
+  color: $clr-red-light;
+  &:hover {
+    color: $clr-red-dark;
+  }
+}

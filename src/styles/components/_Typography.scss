@@ -1,0 +1,42 @@
+/*
+=================
+Typography
+=================
+*/
+
+h1,
+h2,
+h3 {
+  color: $clr-grey-3;
+  font-weight: bold;
+}
+
+h1 {
+  font-size: 2.5rem;
+  font-family: $ff-2;
+  color: $clr-grey-4;
+  span {
+    font-size: 2rem;
+    margin-right: 1rem;
+    color: $clr-grey-8;
+  }
+}
+
+h2 {
+  font-size: 1rem;
+  letter-spacing: 0.1em;
+  font-weight: 100;
+  margin-top: 1rem;
+  text-transform: uppercase;
+  color: $clr-grey-6;
+}
+
+h3 {
+  width: fit-content;
+  max-width: 80%;
+  color: $clr-grey-4;
+  font-weight: normal;
+  font-size: 1.2rem;
+  padding: 0.2em;
+  word-wrap: break-word;
+}
