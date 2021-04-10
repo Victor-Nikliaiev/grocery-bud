@@ -1,0 +1,53 @@
+/*
+=====================
+List Options Styles
+=====================
+*/
+
+#realFileBtn {
+  display: none;
+}
+
+.fileIntro {
+  color: $clr-grey-6;
+  font-size: 0.8rem;
+  font-family: $ff-3;
+}
+
+.fileBtn {
+  transition: $transition;
+  width: fit-content;
+  font-family: $ff-3;
+  font-size: 0.9rem;
+  cursor: pointer;
+  color: $clr-grey-5;
+  border: none;
+  background: none;
+  outline: none;
+  &:hover {
+    color: $clr-green-dark;
+  }
+  span {
+    margin-left: 0.1em;
+  }
+}
+
+.fileGroup {
+  width: fit-content;
+  max-width: 90%;
+  padding: 0.5em;
+  margin: 0 auto;
+  margin-top: 0.7em;
+  border: 2px outset $clr-grey-9;
+  display: flex;
+  flex-flow: column nowrap;
+  justify-content: center;
+  align-items: center;
+}
+
+#custom-text {
+  word-wrap: break-word;
+  color: $clr-grey-8;
+  width: fit-content;
+  max-width: 90%;
+}
