@@ -24,6 +24,7 @@ const List = ({
               editItem={editItem}
               isEditing={isEditing}
               selectedID={selectedID}
+              showAlert={showAlert}
             />
           );
         })}

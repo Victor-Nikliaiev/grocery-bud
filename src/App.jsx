@@ -32,7 +32,13 @@ function App() {
 
   const deleteItem = (id) => {
     setList(list.filter((item) => item.id !== id));
-    showAlert(true, "danger", "Item has been removed.");
+  };
+
+  const addItem = () => {
+    setList((prev) => [
+      ...prev,
+      { id: new Date().getTime().toString(), title: name },
+    ]);
   };
 
   const editItem = (id) => {
@@ -41,18 +47,36 @@ function App() {
     setName(selectedItem.title);
     setSelectedID(id);
   };
+
+  const checkName = (name) => {
+    const payload = {
+      hasError: false,
+      errorMsg: null,
+    };
+
+    if (!name) {
+      payload.hasError = true;
+      payload.errorMsg = "Field cannot be empty.";
+    }
+
+    if (name.length > 30) {
+      payload.hasError = true;
+      payload.errorMsg = "Field cannot be more than 30 characters";
+    }
+    return payload;
+  };
+
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (!name) {
-      showAlert(true, "danger", "Field cannot be empty.");
-      return;
-    }
-    if (name.length > 30) {
-      showAlert(true, "danger", "Field cannot be more than 30 characters");
+    const nameChecker = checkName(name);
+    const editConditions = isEditing && selectedID;
+
+    if (nameChecker.hasError) {
+      showAlert(true, "danger", nameChecker.errorMsg);
       return;
     }
 
-    if (isEditing && selectedID) {
+    if (editConditions) {
       setList(
         list.map((item) => {
           if (item.id === selectedID) {
@@ -69,55 +93,78 @@ function App() {
       return;
     }
 
-    setList((prev) => [
-      ...prev,
-      { id: new Date().getTime().toString(), title: name },
-    ]);
+    addItem();
     setName("");
     showAlert(true, "success", "Item has been added.");
   };
 
-  const downloadFile = (filename, data) => {
-    if (JSON.parse(data).length === 0) {
-      showAlert(
-        true,
-        "danger",
-        "The list is empty, nothing is to download, try to add some items."
-      );
-      return;
-    }
-
+  const getFile = (filename, data) => {
     try {
       let a = document.createElement("a");
       let file = new Blob([data], { type: "application/json" });
       a.href = URL.createObjectURL(file);
       a.download = filename;
       a.click();
-    } catch (error) {
-      console.log("ERROR: in DownloadFile :D");
+    } catch (error) {}
+  };
+
+  const checkList = (data) => {
+    const isListEmpty = JSON.parse(data).length === 0;
+    const payload = {
+      hasError: false,
+      errorMsg: null,
+    };
+
+    if (isListEmpty) {
+      payload.hasError = true;
+      payload.errorMsg =
+        "The list is empty, nothing is to download, try to add some items.";
+    }
+    return payload;
+  };
+
+  const downloadFile = (filename, data) => {
+    const listChecker = checkList(data);
+    if (listChecker.hasError) {
+      showAlert(true, "danger", listChecker.errorMsg);
+      return;
+    }
+
+    getFile(filename, data);
+  };
+
+  const setCustomFileLabel = () => {
+    const fileHasBeenChoosed = realBtnRef.current.value;
+    if (fileHasBeenChoosed) {
+      setCustomTxt(realBtnRef.current.value.match(/[\\]([\w\d\s.\-()]+)$/)[1]);
     }
   };
 
-  const handleFileChange = (e) => {
-    if (realBtnRef.current.value) {
-      setCustomTxt(realBtnRef.current.value.match(/[\\]([\w\d\s.\-()]+)$/)[1]);
-    }
-
+  const setUpList = (event) => {
     try {
-      const file = e.target.files[0];
+      const file = event.target.files[0];
       const reader = new FileReader();
       reader.onload = () => {
-        // console.log(reader.result);
         setListFromFile(reader.result);
       };
       reader.readAsText(file);
-    } catch (error) {
-      console.log("ERROR: in HandleFileChange");
-    }
+    } catch (error) {}
   };
 
-  const areListOk = (list) => {
+  const handleFileChange = (e) => {
+    setCustomFileLabel();
+    setUpList(e);
+  };
+
+  const isListOK = (list) => {
     let isOk = true;
+    let isListEmpty = list.length === 0;
+
+    if (isListEmpty) {
+      isOk = false;
+      return isOk;
+    }
+
     list.forEach((item) => {
       if (!item.id || !item.title) {
         isOk = false;
@@ -125,20 +172,16 @@ function App() {
     });
     return isOk;
   };
-  const handleFileSubmit = (e) => {
-    e.preventDefault();
-    if (!listFromFile) {
-      showAlert(true, "danger", "There is no file, please choose it first.");
-      return;
-    }
 
+  const submitFile = () => {
     try {
       let newList = JSON.parse(listFromFile);
-      if (newList.length === 0 || areListOk(newList)) {
+      if (isListOK(newList)) {
         setList(newList);
         showAlert(true, "success", "List has been uploaded successfully.");
         return;
       }
+
       showAlert(
         true,
         "danger",
@@ -151,6 +194,15 @@ function App() {
         "Type of file is not JSON, please check a file, and try again."
       );
     }
+  };
+
+  const handleFileSubmit = (e) => {
+    e.preventDefault();
+    if (!listFromFile) {
+      showAlert(true, "danger", "There is no file, please choose it first.");
+      return;
+    }
+    submitFile();
   };
 
   return (
