@@ -1,7 +1,7 @@
 import { IoIosAddCircleOutline, IoIosSave } from "react-icons/io";
 import { useEffect, useRef } from "react";
 
-const Form = ({ onSubmit, name, setName, isEditing }) => {
+const ListForm = ({ onSubmit, name, setName, isEditing }) => {
   const inputRef = useRef();
 
   useEffect(() => {
@@ -27,4 +27,4 @@ const Form = ({ onSubmit, name, setName, isEditing }) => {
   );
 };
 
-export default Form;
+export default ListForm;

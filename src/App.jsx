@@ -1,10 +1,8 @@
 import { useEffect, useState, useRef } from "react";
+import FileForm from "./components/FileForm";
+import ListForm from "./components/ListForm";
+import Header from "./components/Header";
 import List from "./components/List/List";
-import Alert from "./components/Alert";
-import Form from "./components/Form";
-import { IoIosBasket } from "react-icons/io";
-import { GoCloudDownload, GoCloudUpload } from "react-icons/go";
-import { BiSelectMultiple } from "react-icons/bi";
 
 const getStorage = () => {
   const local = JSON.parse(localStorage.getItem("list"));
@@ -22,7 +20,6 @@ function App() {
   const [listFromFile, setListFromFile] = useState(null);
 
   const realBtnRef = useRef();
-
   const [customTxt, setCustomTxt] = useState("No file choosen, yet");
 
   useEffect(() => {
@@ -50,7 +47,6 @@ function App() {
       showAlert(true, "danger", "Field cannot be empty.");
       return;
     }
-
     if (name.length > 30) {
       showAlert(true, "danger", "Field cannot be more than 30 characters");
       return;
@@ -103,8 +99,6 @@ function App() {
   };
 
   const handleFileChange = (e) => {
-    // e.preventDefault();
-
     if (realBtnRef.current.value) {
       setCustomTxt(realBtnRef.current.value.match(/[\\]([\w\d\s.\-()]+)$/)[1]);
     }
@@ -122,9 +116,9 @@ function App() {
     }
   };
 
-  const areListOk = (settings) => {
+  const areListOk = (list) => {
     let isOk = true;
-    settings.forEach((item) => {
+    list.forEach((item) => {
       if (!item.id || !item.title) {
         isOk = false;
       }
@@ -161,59 +155,15 @@ function App() {
 
   return (
     <div className="section-center">
-      {alert.show && <Alert alert={alert} removeAlert={showAlert} />}
-      <h1>
-        <span>
-          <IoIosBasket />
-        </span>
-        Grocery Bud{" "}
-      </h1>
-
-      <div>
-        <p className="fileIntro">You can download or upload, your list</p>
-        <button
-          onClick={() =>
-            downloadFile("itemsList.json", localStorage.getItem("list"))
-          }
-          className="fileBtn"
-        >
-          <GoCloudDownload />
-          <span>download the list</span>
-        </button>
-
-        {/*//////////// Upload Form */}
-        <form onSubmit={(e) => handleFileSubmit(e)}>
-          <input
-            ref={realBtnRef}
-            type="file"
-            accept="application/JSON"
-            id="realFileBtn"
-            onChange={(e) => handleFileChange(e)}
-            className="inputFile"
-          />
-          <div className="fileGroup">
-            <button
-              type="button"
-              id="custom-button"
-              onClick={(e) => {
-                realBtnRef.current.click();
-              }}
-              className="fileBtn"
-            >
-              <BiSelectMultiple />
-              <span>choose a list</span>
-            </button>
-            <span id="custom-text">{customTxt}</span>
-            <button type="submit" className="fileBtn">
-              <GoCloudUpload />
-              <span>upload a list</span>
-            </button>
-          </div>
-        </form>
-        {/* ////////////// End Upload Form */}
-      </div>
-
-      <Form
+      <Header alert={alert} showAlert={showAlert} />
+      <FileForm
+        handleFileChange={handleFileChange}
+        handleFileSubmit={handleFileSubmit}
+        downloadFile={downloadFile}
+        realBtnRef={realBtnRef}
+        customTxt={customTxt}
+      />
+      <ListForm
         onSubmit={handleSubmit}
         name={name}
         setName={setName}
