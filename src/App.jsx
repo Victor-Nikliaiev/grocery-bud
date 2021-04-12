@@ -34,7 +34,7 @@ function App() {
     setList(list.filter((item) => item.id !== id));
   };
 
-  const addItem = () => {
+  const addItem = (setList, name) => {
     setList((prev) => [
       ...prev,
       { id: new Date().getTime().toString(), title: name },
@@ -86,6 +86,7 @@ function App() {
           return item;
         })
       );
+
       setSelectedID(null);
       setName("");
       setIsEditing(false);
@@ -93,7 +94,7 @@ function App() {
       return;
     }
 
-    addItem();
+    addItem(setList, name);
     setName("");
     showAlert(true, "success", "Item has been added.");
   };
