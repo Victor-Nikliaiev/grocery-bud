@@ -1,11 +1,13 @@
 import React from "react";
 import Alert from "./Alert";
 import { IoIosBasket } from "react-icons/io";
+import { useListVariables } from "../providers/ListProvider";
 
-const Header = ({ alert, showAlert }) => {
+const Header = () => {
+  const { alert } = useListVariables();
   return (
     <header>
-      {alert.show && <Alert alert={alert} removeAlert={showAlert} />}
+      {alert.show && <Alert />}
       <h1>
         <span>
           <IoIosBasket />

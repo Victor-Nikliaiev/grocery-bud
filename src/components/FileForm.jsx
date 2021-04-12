@@ -1,14 +1,15 @@
 import React from "react";
 import { GoCloudDownload, GoCloudUpload } from "react-icons/go";
 import { BiSelectMultiple } from "react-icons/bi";
+import { useListFunctions, useListVariables } from "../providers/ListProvider";
 
-const FileForm = ({
-  handleFileChange,
-  handleFileSubmit,
-  downloadFile,
-  realBtnRef,
-  customTxt,
-}) => {
+const FileForm = () => {
+  const { realBtnRef, customTxt } = useListVariables();
+  const {
+    handleFileChange,
+    handleFileSubmit,
+    downloadFile,
+  } = useListFunctions();
   return (
     <form onSubmit={(e) => handleFileSubmit(e)}>
       <p className="fileIntro">You can download or upload, your list</p>

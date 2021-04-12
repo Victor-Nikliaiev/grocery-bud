@@ -4,10 +4,16 @@ Alert Styles
 =============
 */
 .alert {
+  width: 100%;
+  transition: $transition;
+  left: 50%;
+  top: -3em;
+  transform: translate(-50%);
+  position: absolute;
   font-family: $ff-3;
-  display: block;
+  display: grid;
   border-radius: 0.3rem;
-  font-size: 0.8rem;
+  font-size: 0.7rem;
   padding: 0.1em;
   color: $clr-grey-10;
   &.success {

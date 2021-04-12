@@ -1,14 +1,13 @@
 import React from "react";
 import { FaEdit, FaTrash } from "react-icons/fa";
+import {
+  useListFunctions,
+  useListVariables,
+} from "../../providers/ListProvider";
 
-const Item = ({
-  item,
-  deleteItem,
-  editItem,
-  isEditing,
-  selectedID,
-  showAlert,
-}) => {
+const Item = ({ item }) => {
+  const { isEditing, selectedID } = useListVariables();
+  const { deleteItem, editItem, showAlert } = useListFunctions();
   const handleDeleteOnClick = (id) => {
     deleteItem(id);
     showAlert(true, "danger", "Item has been removed.");

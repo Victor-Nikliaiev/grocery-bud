@@ -1,7 +1,10 @@
 import { IoIosAddCircleOutline, IoIosSave } from "react-icons/io";
 import { useEffect, useRef } from "react";
+import { useListFunctions, useListVariables } from "../providers/ListProvider";
 
-const ListForm = ({ onSubmit, name, setName, isEditing }) => {
+const ListForm = () => {
+  const { name, isEditing } = useListVariables();
+  const { handleSubmit: onSubmit, setName } = useListFunctions();
   const inputRef = useRef();
 
   useEffect(() => {

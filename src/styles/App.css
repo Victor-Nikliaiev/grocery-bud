@@ -163,6 +163,7 @@ body {
 }
 
 .section-center {
+  position: relative;
   transition: all 0.5s linear;
   width: 90vw;
   max-width: 35rem;
@@ -411,10 +412,16 @@ Alert Styles
 =============
 */
 .alert {
+  width: 100%;
+  transition: all 0.3s linear;
+  left: 50%;
+  top: -3em;
+  transform: translate(-50%);
+  position: absolute;
   font-family: "IBM Plex Mono", monospace;
-  display: block;
+  display: grid;
   border-radius: 0.3rem;
-  font-size: 0.8rem;
+  font-size: 0.7rem;
   padding: 0.1em;
   color: #f1f5f8;
 }
