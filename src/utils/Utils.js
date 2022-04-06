@@ -18,9 +18,9 @@ export class Utils {
       payload.errorMsg = "Field cannot be empty.";
     }
 
-    if (name.length > 30) {
+    if (name.length > 50) {
       payload.hasError = true;
-      payload.errorMsg = "Field cannot be more than 30 characters";
+      payload.errorMsg = "Field cannot be more than 50 characters";
     }
     return payload;
   }
