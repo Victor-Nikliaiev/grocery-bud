@@ -20,7 +20,7 @@ const ListForm = () => {
           onChange={(e) => setName(e.target.value)}
           type="text"
           placeholder="e. g. Eggs"
-          maxLength={30}
+          maxLength={50}
         />
         <button className="btn" type="submit">
           {isEditing ? <IoIosSave /> : <IoIosAddCircleOutline />}
